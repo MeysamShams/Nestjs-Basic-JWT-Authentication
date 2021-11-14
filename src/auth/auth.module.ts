@@ -3,9 +3,18 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserRepository } from './repository/user.repository';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([UserRepository])],
+  imports:[
+    TypeOrmModule.forFeature([UserRepository]),
+    JwtModule.register({
+      secret:"StrongSecret",
+      signOptions:{
+        expiresIn:86400 // 1 day
+      }
+    }),
+  ],
   providers: [AuthService],
   controllers: [AuthController]
 })

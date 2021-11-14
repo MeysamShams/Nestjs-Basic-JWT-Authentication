@@ -13,4 +13,10 @@ export class AuthController {
     register(@Body() authCredentialsDto:AuthCredentialsDto):Promise<void>{
         return this.authService.register(authCredentialsDto)
     }
+
+    @Post("/login")
+    @UsePipes(ValidationPipe)
+    login(@Body() authCredentialsDto:AuthCredentialsDto):Promise<{token:string}>{
+        return this.authService.login(authCredentialsDto)
+    }
 }
